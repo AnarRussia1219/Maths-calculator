@@ -1,6 +1,24 @@
 function mathParser(mathStr) {
     mathStr = mathStr.trim();
-    let tokens = mathStr.split(" ");
+    let tokens = [];
+    let numberBuffer = "";
+
+    // create the token array
+    for (let i = 0; i < mathStr.length; i++) {
+        if (!isNaN(mathStr[i]) || mathStr[i] === ".") {
+            numberBuffer += mathStr[i];
+        } else {
+            if (numberBuffer) {
+                tokens.push(numberBuffer);
+                numberBuffer = "";
+            };
+
+            tokens.push(mathStr[i]);
+        };
+    };
+    if (numberBuffer) {
+        tokens.push(numberBuffer);
+    };
 
     // multiplication and division
     for (let i = 0; i < tokens.length; i++) {

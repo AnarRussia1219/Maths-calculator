@@ -12,8 +12,20 @@ calculatorBtns.forEach((btn, index) => {
     // equal button event, checking it to be 0 because the equals button is the first button in the html
     if (index === 0) {
         btn.addEventListener("click", () => {
-            calculatorOperationsText.textContent = String(mathParser(calculatorOperationsValue));
-            calculatorOperationsValue = calculatorOperationsText.textContent;
+            if (!isNaN(calculatorOperationsText.textContent[0]) && !isNaN(calculatorOperationsText.textContent[calculatorOperationsText.textContent.length - 1])) {
+                calculatorOperationsText.textContent = String(mathParser(calculatorOperationsValue));
+                calculatorOperationsValue = calculatorOperationsText.textContent;
+            } else {
+                calculatorOperationsText.textContent = "ERROR!";
+                calculatorOperationsValue = "";
+            };
+        });
+    } else if (index === 1) {
+        btn.addEventListener("click", () => {
+            if (calculatorOperationsText.textContent.length > 0) {
+                calculatorOperationsText.textContent = calculatorOperationsText.textContent.substring(0, calculatorOperationsText.textContent.length - 1);
+                calculatorOperationsValue = calculatorOperationsText.textContent;
+            };
         });
     } else {
         // other btns
